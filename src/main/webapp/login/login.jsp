@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>/jsp/login</title>
+    <title>게시판 - 로그인</title>
 
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,34 +22,7 @@
     <script src="${pageContext.request.contextPath}/js/js.cookie.js"></script>
   <script>
   	$(document).ready(function(){
-  		// 문서 로딩이 완료되고 나서 실행되는 부분
-  		// rememberme checkbox
-  		// 1. rememberme cookie가 있는지? 있다면 값이 true인지?
-  		// 1-1. rememberme가 true이면 input id="rememberme" 체크박스를 체크
-  		
-  		var rememberme = Cookies.get("rememberme");
-  		if(rememberme == "true"){
-  			$("#rememberme").prop("checked", true);
-  			$("#userId").val(Cookies.get("userId")); // userId 쿠키에서 값을 읽어 화면에 띄운다
-  			$("#password").focus();
-  		}
-  		
-  		// signin button 클릭 시 실행되는 핸들러
   		$("#signinBtn").on("click", function(){
-  			// 만약 remember 체크박스가 체크되어 있는 경우
-  			//	사용자 아이디 값을 userId 쿠키로 저장
-  			//	true값을 rememberme cookie 값으로 저장
-//   			if($("#rememberme").is(":checked")){
-//   				Cookies.set("userId", $("#userId").val(), {expires : 30});
-//   				Cookies.set("rememberme", "true", {expires : 30}); // 문자열이라 그냥 값을 준다
-//   			}
-  			// 만약에 rememberme 체크박스가 해제되어 있는 경우
-  			//	userId, rememberme cookie 값을 삭제
-//   			else{
-//   				Cookies.remove("userId");
-//   				Cookies.remove("rememberme");
-//   			}
-  			
   			// 로그인 요청을 서버로 전송
   			$("#frm").submit(); // frm은 form태그의 id
   		});
@@ -65,10 +38,10 @@
         <h2 class="form-signin-heading">Please sign in</h2>
         
         <label for="userId" class="sr-only">userId</label>
-        <input type="text" id="userId" name="userId" class="form-control" value="${param.userId }" placeholder="userId" required>
+        <input type="text" id="userId" name="userId" class="form-control" value="${param.userId }" placeholder="userId" required value="cony">
         
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required value="cony1234">
         
         <div class="checkbox">
           <label>

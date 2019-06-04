@@ -5,7 +5,7 @@ import java.util.Date;
 public class ReplyVO {
 	private String reply_id;
 	private String reply_user;
-	private String reply_article;
+	private int reply_article;
 	private String reply_content;
 	private Date reply_date;
 	private String reply_use;
@@ -14,7 +14,7 @@ public class ReplyVO {
 		
 	}
 
-	public ReplyVO(String reply_id, String reply_user, String reply_article,
+	public ReplyVO(String reply_id, String reply_user, int reply_article,
 			String reply_content, Date reply_date, String reply_use) {
 		super();
 		this.reply_id = reply_id;
@@ -41,11 +41,11 @@ public class ReplyVO {
 		this.reply_user = reply_user;
 	}
 
-	public String getReply_article() {
+	public int getReply_article() {
 		return reply_article;
 	}
 
-	public void setReply_article(String reply_article) {
+	public void setReply_article(int reply_article) {
 		this.reply_article = reply_article;
 	}
 

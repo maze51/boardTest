@@ -3,10 +3,10 @@ package kr.or.ddit.board.model;
 import java.util.Date;
 
 public class ArticleVO {
-	private String article_id;
+	private int article_id;
 	private String article_user;
 	private String article_board;
-	private String article_pid;
+	private int article_pid;
 	private String article_title;
 	private String article_content;
 	private Date article_date;
@@ -14,10 +14,10 @@ public class ArticleVO {
 	public ArticleVO() {
 		
 	}
-
-	public ArticleVO(String article_id, String article_user,
-			String article_board, String article_pid, String article_title,
-			String article_content, Date article_date) {
+	
+	public ArticleVO(int article_id, String article_user, String article_board,
+			int article_pid, String article_title, String article_content,
+			Date article_date) {
 		super();
 		this.article_id = article_id;
 		this.article_user = article_user;
@@ -28,11 +28,11 @@ public class ArticleVO {
 		this.article_date = article_date;
 	}
 
-	public String getArticle_id() {
+	public int getArticle_id() {
 		return article_id;
 	}
 
-	public void setArticle_id(String article_id) {
+	public void setArticle_id(int article_id) {
 		this.article_id = article_id;
 	}
 
@@ -52,11 +52,11 @@ public class ArticleVO {
 		this.article_board = article_board;
 	}
 
-	public String getArticle_pid() {
+	public int getArticle_pid() {
 		return article_pid;
 	}
 
-	public void setArticle_pid(String article_pid) {
+	public void setArticle_pid(int article_pid) {
 		this.article_pid = article_pid;
 	}
 

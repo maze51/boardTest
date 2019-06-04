@@ -3,16 +3,16 @@ package kr.or.ddit.board.model;
 public class AppendVO {
 	
 	private String append_id;
-	private String append_article;
+	private int append_article;
 	private String append_path;
 	private String append_filename;
 	
 	public AppendVO() {
 		
 	}
-
-	public AppendVO(String append_id, String append_article,
-			String append_path, String append_filename) {
+	
+	public AppendVO(String append_id, int append_article, String append_path,
+			String append_filename) {
 		super();
 		this.append_id = append_id;
 		this.append_article = append_article;
@@ -28,11 +28,11 @@ public class AppendVO {
 		this.append_id = append_id;
 	}
 
-	public String getAppend_article() {
+	public int getAppend_article() {
 		return append_article;
 	}
 
-	public void setAppend_article(String append_article) {
+	public void setAppend_article(int append_article) {
 		this.append_article = append_article;
 	}
 
