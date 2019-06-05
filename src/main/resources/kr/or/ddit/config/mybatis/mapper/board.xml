@@ -6,8 +6,42 @@
 
 	<!-- 전체 게시판 목록 출력 -->
 	<select id="showBoardList" resultType="boardVO">
-		select BOARD_NAME from BOARD
+		select * from BOARD
 		order by BOARD_ID
 	</select>
-
+	
+	<!-- 한 게시판의 전체 게시글 목록 출력 -->
+	<select id="selectAllArticle" parameterType="string" resultType="articleVO">
+		select *
+		from ARTICLE
+		where ARTICLE_BOARD = #{article_board}
+	</select>
+	
+	<!-- 한 게시판의 전체 게시글수 조회 -->
+	<select id="boardCnt" parameterType="string" resultType="int">
+		select count(*) from ARTICLE
+		where ARTICLE_BOARD = #{article_board}
+	</select>
+	
+	<!-- 게시글 페이징 리스트 조회 -->
+	<select id="articlePagingList" parameterType="map" resultType="articleVO">
+	<![CDATA[
+		select b.*
+		from
+		(select a.*, rownum rn
+		from
+		(select article.ARTICLE_NUMBER, article.ARTICLE_TITLE, article.ARTICLE_USER, article.ARTICLE_DATE, article.ARTICLE_USE, level lv
+		from ARTICLE article
+		where ARTICLE_BOARD = #{boardId}
+		start with ARTICLE_PID is null
+		connect by prior ARTICLE_NUMBER = ARTICLE_PID
+		order siblings by ARTICLE_GROUP desc, ARTICLE_NUMBER) a) b
+		where b.rn >= (#{page}-1)*#{pageSize} + 1 and b.rn <= #{page}*#{pageSize}
+		]]>
+	</select>
+	
+	<insert id="createBoard" parameterType="map">
+		insert into board
+		values('b' || to_char(boardtest_seq.nextval), #{userId}, #{boardName}, #{useSelect}, SYSDATE)
+	</insert>
 </mapper>

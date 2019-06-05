@@ -5,6 +5,9 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="boardVO" type="kr.or.ddit.board.model.BoardVO"/>
+		<typeAlias alias="articleVO" type="kr.or.ddit.board.model.ArticleVO"/>
+		<typeAlias alias="appendVO" type="kr.or.ddit.board.model.AppendVO"/>
+		<typeAlias alias="replyVO" type="kr.or.ddit.board.model.ReplyVO"/>
 		<typeAlias alias="pageVO" type="kr.or.ddit.paging.model.PageVO"/>
 		<typeAlias alias="userVO" type="kr.or.ddit.user.model.UserVO"/>
 		

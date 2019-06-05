@@ -38,7 +38,8 @@
         <h2 class="form-signin-heading">Please sign in</h2>
         
         <label for="userId" class="sr-only">userId</label>
-        <input type="text" id="userId" name="userId" class="form-control" value="${param.userId }" placeholder="userId" required value="cony">
+        <input type="text" id="userId" name="userId" class="form-control" placeholder="userId" required value="cony">
+		<%-- value="${param.userId }" --%>
         
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="Password" required value="cony1234">
