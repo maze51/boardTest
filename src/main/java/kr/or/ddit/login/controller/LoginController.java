@@ -1,6 +1,7 @@
 package kr.or.ddit.login.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -47,6 +48,8 @@ public class LoginController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		String encryptPassword = KISA_SHA256.encrypt(password);
@@ -55,12 +58,19 @@ public class LoginController extends HttpServlet {
 		
 		if(userVO!=null && encryptPassword.equals(userVO.getPass())){
 			List<BoardVO> boardList = boardService.showBoardList();
+			List<BoardVO> useBoardList = new ArrayList<BoardVO>(); // 사용하는 게시판을 저장
+			
+			for (int i=0;i<boardList.size();i++) {
+				if(boardList.get(i).getBoard_use().equals("1")){
+					useBoardList.add(boardList.get(i));
+				}
+			}
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("USER_INFO", userVO);
 			ServletContext context = request.getServletContext();
-			context.setAttribute("BOARD_LIST", boardList);
-			logger.debug("boardList : {}", boardList.get(0));
+			context.setAttribute("BOARD_LIST", useBoardList); // application에 저장
+//			logger.debug("boardList : {}", useBoardList.get(0));
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
 			
 		} else {

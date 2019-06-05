@@ -31,8 +31,9 @@ public class BoardDaoTest {
 		List<BoardVO> boardList = boardDao.showBoardList();
 
 		/***Then***/
-		assertEquals(3, boardList.size());
+		assertEquals(4, boardList.size());
 		assertEquals("자유게시판", boardList.get(1).getBoard_name());
+		assertEquals("1", boardList.get(0).getBoard_use());
 	}
 
 }

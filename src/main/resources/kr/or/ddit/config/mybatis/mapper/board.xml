@@ -6,7 +6,7 @@
 
 	<!-- 전체 게시판 목록 출력 -->
 	<select id="showBoardList" resultType="boardVO">
-		select BOARD_NAME from BOARD
+		select * from BOARD
 		order by BOARD_ID
 	</select>
 

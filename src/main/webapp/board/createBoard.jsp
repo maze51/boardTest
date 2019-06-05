@@ -1,9 +1,7 @@
-<%@page import="kr.or.ddit.user.model.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,12 +11,13 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>Jsp</title>
+<title>게시판 생성</title>
 
 <!-- css, js -->
 <%@include file="/common/basicLib.jsp" %>
-</head>
 
+</head>
+<body>
 <body>
 	<!-- header -->
 	<%@include file="/common/header.jsp" %>
@@ -33,8 +32,7 @@
 				
 
 <div class="blog-header">
-	<h1 class="blog-title">메인 화면</h1>
-	<p class="lead blog-description">Jsp / Spring.</p>
+	<p class="lead blog-description">게시판 관리</p>
 </div>
 
 <div class="row">
@@ -50,4 +48,3 @@
 	</div>
 </body>
 </html>
-    
