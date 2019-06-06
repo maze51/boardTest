@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.BoardVO;
+import kr.or.ddit.board.model.ReplyVO;
 
 public interface IboardDao {
 	
@@ -61,4 +62,48 @@ public interface IboardDao {
 	* Method 설명 : 신규 게시판 생성
 	 */
 	int createBoard(Map<String, Object> cMap);
+	
+	/**
+	 * 
+	* Method : modifyBoard
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param mMap
+	* @return
+	* Method 설명 : 게시판 수정
+	 */
+	int modifyBoard(Map<String, Object> mMap);
+	
+	/**
+	 * 
+	* Method : readArticle
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param articleNumber
+	* @return
+	* Method 설명 : 개별 게시글 확인
+	 */
+	ArticleVO readArticle(int articleNumber);
+	
+	/**
+	 * 
+	* Method : readReply
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param articleNumber
+	* @return
+	* Method 설명 : 게시글에 해당하는 댓글 확인
+	 */
+	List<ReplyVO> readReply(int articleNumber);
+	
+	/**
+	 * 
+	* Method : deleteArticle
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param articleNumber
+	* @return
+	* Method 설명 : 개별 게시글 삭제
+	 */
+	int deleteArticle(int articleNumber);
 }

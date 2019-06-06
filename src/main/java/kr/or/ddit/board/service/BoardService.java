@@ -11,6 +11,7 @@ import kr.or.ddit.board.dao.BoardDao;
 import kr.or.ddit.board.dao.IboardDao;
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.BoardVO;
+import kr.or.ddit.board.model.ReplyVO;
 
 public class BoardService implements IboardService{
 	
@@ -50,7 +51,27 @@ public class BoardService implements IboardService{
 
 	@Override
 	public int createBoard(Map<String, Object> cMap) {
-		return 0;
+		return boardDao.createBoard(cMap);
+	}
+
+	@Override
+	public int modifyBoard(Map<String, Object> mMap) {
+		return boardDao.modifyBoard(mMap);
+	}
+
+	@Override
+	public ArticleVO readArticle(int articleNumber) {
+		return boardDao.readArticle(articleNumber);
+	}
+
+	@Override
+	public List<ReplyVO> readReply(int articleNumber) {
+		return boardDao.readReply(articleNumber);
+	}
+
+	@Override
+	public int deleteArticle(int articleNumber) {
+		return boardDao.deleteArticle(articleNumber);
 	}
 
 }

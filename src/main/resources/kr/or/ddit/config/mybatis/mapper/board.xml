@@ -40,8 +40,38 @@
 		]]>
 	</select>
 	
+	<!-- 신규 게시판 생성 -->
 	<insert id="createBoard" parameterType="map">
-		insert into board
+		insert into BOARD
 		values('b' || to_char(boardtest_seq.nextval), #{userId}, #{boardName}, #{useSelect}, SYSDATE)
 	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="modifyBoard" parameterType="map">
+		update BOARD
+		set BOARD_NAME = #{boardName}
+			,BOARD_USE = #{useSelect}
+		where BOARD_ID = #{boardId}
+	</update>
+	
+	<!-- 개별 게시글 확인 -->
+	<select id="readArticle" parameterType="int" resultType="articleVO">
+		select *
+		from ARTICLE
+		where ARTICLE_NUMBER = #{article_number}
+	</select>
+	
+	<!-- 게시글에 해당하는 댓글 확인 -->
+	<select id="readReply" parameterType="int" resultType="replyVO">
+		select *
+		from REPLY
+		where REPLY_ARTICLE = #{reply_article}
+	</select>
+	
+	<!-- 개별 게시글 삭제 -->
+	<update id="deleteArticle" parameterType="int">
+		update ARTICLE
+		set ARTICLE_USE = '0'
+		where ARTICLE_NUMBER = #{article_number}
+	</update>
 </mapper>

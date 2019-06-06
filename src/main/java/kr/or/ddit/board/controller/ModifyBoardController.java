@@ -2,7 +2,6 @@ package kr.or.ddit.board.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,20 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.or.ddit.board.model.BoardVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.service.IboardService;
 import kr.or.ddit.user.model.UserVO;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-@WebServlet("/createBoard")
-public class CreateBoardController extends HttpServlet {
+@WebServlet("/modifyBoard")
+public class ModifyBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(CreateBoardController.class);
+			.getLogger(ModifyBoardController.class);
 	
 	private IboardService boardService;
 	
@@ -33,13 +31,8 @@ public class CreateBoardController extends HttpServlet {
 	public void init() throws ServletException {
 		boardService = new BoardService();
 	}
-    
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		List<BoardVO> boardList = boardService.showBoardList();
-		request.setAttribute("boardList", boardList);
-		
-		request.getRequestDispatcher("/board/createBoard.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,21 +47,20 @@ public class CreateBoardController extends HttpServlet {
 		}
 		
 		HttpSession session = request.getSession();
-		UserVO userVo = (UserVO) session.getAttribute("USER_INFO");
-		String userId = userVo.getUserId(); 
-		logger.debug("select : {}", useSelect);
+		String boardId = request.getParameter("boardId");
 		
-		Map<String, Object> cMap = new HashMap<String, Object>();
+		Map<String, Object> mMap = new HashMap<String, Object>();
 		
-		cMap.put("userId", userId);
-		cMap.put("boardName", boardName);
-		cMap.put("useSelect", useSelect);
+		mMap.put("boardId", boardId);
+		mMap.put("boardName", boardName);
+		mMap.put("useSelect", useSelect);
 		
-		int insertCnt = boardService.createBoard(cMap);
+		int modifyCnt = boardService.modifyBoard(mMap);
 		
-		if(insertCnt == 1){
+		if(modifyCnt == 1){
 			response.sendRedirect(request.getContextPath()+"/createBoard");
 		}
-
+		
 	}
+
 }

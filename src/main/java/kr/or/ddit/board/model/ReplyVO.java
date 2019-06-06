@@ -1,5 +1,6 @@
 package kr.or.ddit.board.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ReplyVO {
@@ -59,6 +60,11 @@ public class ReplyVO {
 
 	public Date getReply_date() {
 		return reply_date;
+	}
+	
+	public String getReply_dateStr(){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(this.reply_date);
 	}
 
 	public void setReply_date(Date reply_date) {

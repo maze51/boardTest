@@ -1,7 +1,6 @@
 package kr.or.ddit.board.controller;
 
 import java.io.IOException;
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,94 +23,65 @@ import org.slf4j.LoggerFactory;
 @WebServlet("/showBoard")
 public class ShowBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(ShowBoardController.class);
-	
+
 	private IboardService boardService;
-	
+
 	@Override
 	public void init() throws ServletException {
 		boardService = new BoardService();
 	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
+
 		String pageString = request.getParameter("page");
 		String pageSizeString = request.getParameter("pageSize");
-		
+
 		int page = pageString == null ? 1 : Integer.parseInt(pageString);
-		int pageSize = pageSizeString == null ? 10 : Integer.parseInt(pageSizeString);
-		
+		int pageSize = pageSizeString == null ? 10 : Integer
+				.parseInt(pageSizeString);
+
 		PageVO pageVO = new PageVO(page, pageSize);
-		String boardId = request.getParameter("boardId");
-		//String boardName = request.getParameter("boardName");
-		//---------------------------------------------------------
+		
+		String boardId = null;
+		if(request.getParameter("boardId") == null){
+			boardId = (String) request.getAttribute("boardId");
+		} else {
+			boardId = request.getParameter("boardId");
+		}
+		String boardName = request.getParameter("boardName");
+		// ---------------------------------------------------------
 		// 게시글 페이징 리스트 조회
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("page", page);
 		searchMap.put("pageSize", pageSize);
 		searchMap.put("boardId", boardId);
-		
+
 		Map<String, Object> resultMap = boardService.articlePagingList(searchMap);
 		List<ArticleVO> articleList = (List<ArticleVO>) resultMap.get("articleList");
-		int paginationSize = (Integer)resultMap.get("paginationSize");
+		int paginationSize = (Integer) resultMap.get("paginationSize");
 
 		request.setAttribute("articleList", articleList);
 		request.setAttribute("paginationSize", paginationSize);
 		request.setAttribute("PageVO", pageVO);
-		
+		//request.setAttribute("boardName", boardName);
+
 		HttpSession session = request.getSession();
-		//session.setAttribute("boardName", boardName);
-		//---------------------------------------------------------
-		//List<ArticleVO> articleList = boardService.selectAllArticle(boardId); 
-		//logger.debug(" " + articleList);
-		//request.setAttribute("articleList", articleList);
-		
-		request.getRequestDispatcher("/board/showBoard.jsp").forward(request, response);
+		 session.setAttribute("boardId", boardId);
+		// ---------------------------------------------------------
+		// List<ArticleVO> articleList = boardService.selectAllArticle(boardId);
+		// logger.debug(" " + articleList);
+		// request.setAttribute("articleList", articleList);
+
+		request.getRequestDispatcher("/board/showBoard.jsp").forward(request,response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-=======
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import kr.or.ddit.board.service.BoardService;
-import kr.or.ddit.board.service.IboardService;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-@WebServlet("/showBoard")
-public class ShowBoardController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    
-	private static final Logger logger = LoggerFactory
-			.getLogger(ShowBoardController.class);
-	
-	private IboardService boardService;
-	
-	@Override
-	public void init() throws ServletException {
-		boardService = new BoardService();
 	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		logger.debug("showBoardController doGet()");
-		logger.debug(request.getParameter("boardName"));
-		request.getRequestDispatcher("/board/showBoard.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
->>>>>>> refs/remotes/origin/master
-	}
-
 }

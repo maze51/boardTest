@@ -1,0 +1,104 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="../../favicon.ico">
+<title>게시글 상세보기</title>
+<!-- css, js -->
+<%@include file="/common/basicLib.jsp"%>
+<style>
+	table{
+		margin: 50px 0 0 0;
+	}
+	td{
+		font-weight: bold;
+	}
+	.th{
+		width : 150px;
+	}
+	input{
+		width : 500px;
+		margin : 0 10px 0 0;
+	}
+</style>
+<script>
+	$(document).ready(function(){
+		$("#deleteBtn").on("click", function(){
+			var yn = confirm("게시글을 삭제하시겠습니까?");
+			if(yn == true){
+				$("#dform").submit();
+			}
+			
+		})
+	})
+</script>
+
+</head>
+<body>
+	<!-- header -->
+	<%@include file="/common/header.jsp"%>
+	<div class="container-fluid">
+		<div class="row">
+
+			<!-- left -->
+			<%@include file="/common/left.jsp"%>
+			<div class="container">
+				<table class="table">
+					<tr>
+						<td class="th">제목</td>
+						<td>${article.article_title}</td>
+					</tr>
+					<tr>
+						<td class="th">글내용</td>
+						<td>${article.article_content}</td>
+					</tr>
+					<tr>
+						<td class="th">첨부파일</td>
+						<td></td>
+					</tr>
+				</table>
+			
+			<form action="${pageContext.request.contextPath}/deleteArticle" 
+				id="dform" method="get">
+			<input type="hidden" name="articleNum" value="${article.article_number}"/>
+			</form>
+			
+			<button type="button" class="btn btn-default">수정</button>
+			<button type="button" class="btn btn-default" id="deleteBtn">삭제</button>
+			<button type="button" class="btn btn-default">답글</button>
+			
+			</div>
+			<div class="container">
+			<table class="table">
+					<tr>
+						<td class="th"></td>
+						<td>댓글</td>
+					</tr>
+					<c:forEach items="${reply}" var="reply">
+						<tr>
+							<td></td>
+							<td>${reply.reply_content } [${reply.reply_user } / ${reply.reply_dateStr }]</td>
+						</tr>
+					</c:forEach>
+					<tr>
+						<td class="th"></td>
+						<td>
+						<form action="">
+							<input type="text" id="" name=""/>
+							<button type="button" class="btn btn-default">댓글저장</button>
+						</form>
+						</td>
+					</tr>
+			</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.BoardVO;
+import kr.or.ddit.board.model.ReplyVO;
 import kr.or.ddit.mybatis.MyBatisUtil;
 
 public class BoardDao implements IboardDao{
@@ -56,6 +57,38 @@ public class BoardDao implements IboardDao{
 		sqlSession.close();
 		return insertCnt;
 	}
-	
-	
+
+	@Override
+	public int modifyBoard(Map<String, Object> mMap) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int modifyCnt = sqlSession.update("board.modifyBoard", mMap);
+		sqlSession.commit();
+		sqlSession.close();
+		return modifyCnt;
+	}
+
+	@Override
+	public ArticleVO readArticle(int articleNumber) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		ArticleVO article = sqlSession.selectOne("board.readArticle", articleNumber);
+		sqlSession.close();
+		return article;
+	}
+
+	@Override
+	public List<ReplyVO> readReply(int articleNumber) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		List<ReplyVO> replyList = sqlSession.selectList("board.readReply", articleNumber);
+		sqlSession.close();
+		return replyList;
+	}
+
+	@Override
+	public int deleteArticle(int articleNumber) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int deleteCnt = sqlSession.update("board.deleteArticle", articleNumber);
+		sqlSession.commit();
+		sqlSession.close();
+		return deleteCnt;
+	}
 }

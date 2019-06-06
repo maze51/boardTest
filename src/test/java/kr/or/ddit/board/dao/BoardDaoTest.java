@@ -78,4 +78,62 @@ public class BoardDaoTest {
 		assertNotNull(articleList);
 		assertEquals(10, articleList.size());
 	}
+	
+	@Test
+	public void createBoardTest(){
+		/***Given***/
+		Map<String, Object> cMap = new HashMap<String, Object>();
+		cMap.put("userId", "ryan");
+		cMap.put("boardName", "테스트게시판");
+		cMap.put("useSelect", "1");
+
+		/***When***/
+		int insertCnt = boardDao.createBoard(cMap);
+
+		/***Then***/
+		assertEquals(1, insertCnt);
+		
+		//boardDao.deleteBoard();
+	}
+	
+	@Test
+	public void modifyBoardTest(){
+		/***Given***/
+		Map<String, Object> mMap = new HashMap<String, Object>();
+		mMap.put("boardId", "b6");
+		mMap.put("boardName", "없는게시판");
+		mMap.put("useSelect", "0");
+
+		/***When***/
+		int modifyCnt = boardDao.modifyBoard(mMap);
+		
+		/***Then***/
+		assertEquals(1, modifyCnt);
+	}
+	
+	@Test
+	public void readArticleTest(){
+		/***Given***/
+		int articleNumber = 10;
+
+		/***When***/
+		ArticleVO articleVo = boardDao.readArticle(articleNumber);
+
+		/***Then***/
+		assertEquals("ryan", articleVo.getArticle_user());
+		assertEquals("글내용", articleVo.getArticle_content());
+	}
+	
+	@Test
+	public void deleteArticleTest(){
+		/***Given***/
+		int articleNumber = 17;
+
+		/***When***/
+		int deleteCnt = boardDao.deleteArticle(articleNumber);
+
+		/***Then***/
+		assertEquals(1, deleteCnt);
+
+	}
 }
