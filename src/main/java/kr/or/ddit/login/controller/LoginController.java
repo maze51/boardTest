@@ -68,8 +68,14 @@ public class LoginController extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("USER_INFO", userVO);
+<<<<<<< HEAD
 			//ServletContext context = request.getServletContext();
 			session.setAttribute("BOARD_LIST", useBoardList);
+=======
+			ServletContext context = request.getServletContext();
+			context.setAttribute("BOARD_LIST", useBoardList); // application에 저장
+//			logger.debug("boardList : {}", useBoardList.get(0));
+>>>>>>> refs/remotes/origin/master
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
 			
 		} else {
