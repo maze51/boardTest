@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +19,6 @@ import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IuserService;
 import kr.or.ddit.user.service.UserService;
 
-import org.omg.CORBA.portable.ApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,20 +65,13 @@ public class LoginController extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("USER_INFO", userVO);
-<<<<<<< HEAD
 			//ServletContext context = request.getServletContext();
 			session.setAttribute("BOARD_LIST", useBoardList);
-=======
-			ServletContext context = request.getServletContext();
-			context.setAttribute("BOARD_LIST", useBoardList); // application에 저장
-//			logger.debug("boardList : {}", useBoardList.get(0));
->>>>>>> refs/remotes/origin/master
+
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
 			
 		} else {
 			request.getRequestDispatcher("/login/login.jsp").forward(request, response);
 		}
-		
 	}
-
 }

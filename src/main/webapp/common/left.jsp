@@ -15,7 +15,6 @@
 				//console.log("a click");
 				//console.log($(this).text());
 				var bId = $(this).data("bid");
-<<<<<<< HEAD
 				$(".bi").val(bId);
 				
 				var bname = $(this).data("bname");
@@ -27,17 +26,7 @@
 	</script>
 </head>
 <body>
-	
-=======
-				$(".bn").val(bId);
-				$("#frm").submit();
-			})
-		})
-	</script>
-</head>
-<body>
-	<form id="frm" class="form-signin" action="${pageContext.request.contextPath}/showBoard" method="post">
->>>>>>> refs/remotes/origin/master
+
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li class="active"><a href="${pageContext.request.contextPath}/createBoard">게시판 생성</a></li>
@@ -45,7 +34,6 @@
 		
 			<ul id="blist" class="nav nav-sidebar">
 				<c:forEach items="${BOARD_LIST }" var="board">
-<<<<<<< HEAD
 					<c:choose>
 						<c:when test="${board.board_use == 1}">
 							<form id="frm" class="form-signin" action="${pageContext.request.contextPath}/showBoard" method="get">
@@ -58,13 +46,4 @@
 				</c:forEach>
 			</ul>
 		</div>
-	
-=======
-					<li class="active"><a data-bid="${board.board_id }" href="#">${board.board_name}</a></li>	
-					<input type="hidden" class="bn" name="boardName">
-				</c:forEach>
-			</ul>
-		</div>
-	</form>
->>>>>>> refs/remotes/origin/master
 </body>
