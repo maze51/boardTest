@@ -3,6 +3,7 @@ package kr.or.ddit.board.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.board.model.AppendVO;
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.BoardVO;
 import kr.or.ddit.board.model.ReplyVO;
@@ -26,7 +27,7 @@ public interface IboardService {
 	* 변경이력 :
 	* @param articleBoard
 	* @return
-	* Method 설명 : 게시판아이디로 전체 게시글 목록을 출력
+	* Method 설명 : 게시판아이디와 일치하는 전체 게시글 목록을 출력
 	 */
 	List<ArticleVO> selectAllArticle(String article_board);
 	
@@ -117,4 +118,36 @@ public interface IboardService {
 	* Method 설명 : 특정 댓글 삭제
 	 */
 	int deleteReply(String replyId);
+	
+	/**
+	 * 
+	* Method : writeArticle
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param article
+	* @return
+	* Method 설명 : 새 게시글 작성
+	 */
+	int writeArticle(ArticleVO article);
+	
+	/**
+	 * 
+	* Method : getNextArticleNumber
+	* 작성자 : PC10
+	* 변경이력 :
+	* @return
+	* Method 설명 : 다음 게시글 번호 확인
+	 */
+	int getNextArticleNumber();
+	
+	/**
+	 * 
+	* Method : insertAppend
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param append
+	* @return
+	* Method 설명 : 첨부파일 저장
+	 */
+	int insertAppend(AppendVO append);
 }

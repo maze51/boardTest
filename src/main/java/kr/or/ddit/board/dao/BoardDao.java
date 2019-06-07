@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.or.ddit.board.model.AppendVO;
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.BoardVO;
 import kr.or.ddit.board.model.ReplyVO;
@@ -108,5 +109,31 @@ public class BoardDao implements IboardDao{
 		sqlSession.commit();
 		sqlSession.close();
 		return deleteCnt;
+	}
+
+	@Override
+	public int writeArticle(ArticleVO article) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int insertCnt = sqlSession.insert("board.writeArticle", article);
+		sqlSession.commit();
+		sqlSession.close();
+		return insertCnt;
+	}
+
+	@Override
+	public int getNextArticleNumber() {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int articleNumber = sqlSession.selectOne("board.getNextArticleNumber");
+		sqlSession.close();
+		return articleNumber;
+	}
+
+	@Override
+	public int insertAppend(AppendVO append) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int insertCnt = sqlSession.insert("board.insertAppend", append);
+		sqlSession.commit();
+		sqlSession.close();
+		return insertCnt;
 	}
 }

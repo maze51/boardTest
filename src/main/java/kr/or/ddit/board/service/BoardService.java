@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.board.dao.BoardDao;
 import kr.or.ddit.board.dao.IboardDao;
+import kr.or.ddit.board.model.AppendVO;
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.BoardVO;
 import kr.or.ddit.board.model.ReplyVO;
@@ -82,6 +83,21 @@ public class BoardService implements IboardService{
 	@Override
 	public int deleteReply(String replyId) {
 		return boardDao.deleteReply(replyId);
+	}
+
+	@Override
+	public int writeArticle(ArticleVO article) {
+		return boardDao.writeArticle(article);
+	}
+
+	@Override
+	public int getNextArticleNumber() {
+		return boardDao.getNextArticleNumber();
+	}
+
+	@Override
+	public int insertAppend(AppendVO append) {
+		return boardDao.insertAppend(append);
 	}
 
 }

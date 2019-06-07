@@ -117,7 +117,7 @@
 						<td class="th"></td>
 						<td>
 						<form id="rform" method="post" action="${pageContext.request.contextPath}/writeReply">
-							<input type="text" id="reply" name="reply"/>
+							<input type="text" id="reply" name="reply" maxlength="500"/>
 							<input type="hidden" name="aNum" value="${article.article_number}"/>
 							<button type="button" id="writeR" class="btn btn-default">댓글저장</button>
 						</form>

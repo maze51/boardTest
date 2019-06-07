@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.board.model.AppendVO;
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.BoardVO;
 import kr.or.ddit.board.model.ReplyVO;
@@ -163,5 +164,44 @@ public class BoardDaoTest {
 		/***Then***/
 		assertEquals(1, deleteCnt);
 
+	}
+	
+	@Test
+	public void getNextArticleNumberTest(){
+		/***Given***/
+
+		/***When***/
+		int articleNumber = boardDao.getNextArticleNumber();
+		
+		/***Then***/
+		assertEquals(28, articleNumber);
+	}
+	
+	@Test
+	public void writeArticleTest(){
+		/***Given***/
+		ArticleVO articleVo = new ArticleVO(28, "moon", "b3", "제목", "내용내용", 28);
+		logger.debug("pid : {}", articleVo.getArticle_pid());
+		
+		/***When***/
+		int insertCnt = boardDao.writeArticle(articleVo);
+		
+		/***Then***/
+		assertEquals(1, insertCnt);
+	}
+	
+	@Test
+	public void insertAppendTest(){
+		/***Given***/
+		AppendVO append = new AppendVO();
+		append.setAppend_article(39);
+		append.setAppend_path("d:\boardFile\2019\06\7b0ec4dd-b170-4aa1-bb53-58e465d057db.png");
+		append.setAppend_filename("brown.png");
+		
+		/***When***/
+		int insertCnt = boardDao.insertAppend(append);
+		
+		/***Then***/
+		assertEquals(1, insertCnt);
 	}
 }

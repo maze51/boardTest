@@ -24,6 +24,10 @@
 	.th{
 		width : 150px;
 	}
+	input{
+		width : 500px;
+		margin : 0 10px 0 0;
+	}
 </style>
 <script type="text/javascript">
 var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
@@ -53,7 +57,7 @@ $(document).ready(function() {
 
 			// 이부분에 에디터 validation 검증
 			if(validation()) {
-				$("#frm").submit();
+				$("#wafrm").submit();
 			}
 		}
 	})
@@ -67,7 +71,6 @@ function validation(){
 		oEditors.getById['smarteditor'].exec('FOCUS');
 		return false;
 	}
-
 	return true;
 }
 
@@ -82,32 +85,34 @@ function validation(){
 			<!-- left -->
 			<%@include file="/common/left.jsp"%>
 			
-			
 			<div class="container">
-				<table class="table">
-					<tr>
-						<td class="th">제목</td>
-						<td><input type="text" id="title" name="title"></td>
-					</tr>
-					<tr>
-						<td class="th">글내용</td>
-						<td>
-						<form action="/send.jsp" method="post" id="frm">
-						    <textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
-						    <br>
-						    <input type="button" id="savebutton" value="서버전송"/>
-						</form>
-						</td>
-					</tr>
-					<tr>
-						<td class="th">첨부파일</td>
-						<td></td>
-					</tr>
-				</table>
-				<button type="button" class="btn btn-lg btn-primary">저장</button>
+				<form id="wafrm" class="form-horizontal"
+					action="${pageContext.request.contextPath }/writeArticle"
+					method="post" enctype="multipart/form-data">
+					
+					<table class="table">
+						<tr>
+							<td class="th">제목</td>
+							<td><input type="text" id="title" name="title"></td>
+						</tr>
+						<tr>
+							<td class="th">글내용</td>
+							<td>
+						    	<textarea name="content" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td class="th">첨부파일</td>
+							<td><input type="file" name="profile" multiple/></td>
+						</tr>
+					</table>
+					
+					<input type="hidden" name="boardId" value="${param.boardId}">
+					<button type="button" id="savebutton" class="btn btn-lg btn-primary">저장</button>
+					
+				</form>
 			</div>
 			<div class="container">
-<%-- 			${param.boardId} --%>
 			</div>
 		</div>
 	</div>

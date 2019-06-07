@@ -19,6 +19,30 @@ public class ArticleVO {
 		
 	}
 	
+	public ArticleVO(int article_number, String article_user,
+			String article_board, String article_title,
+			String article_content, int article_group) {
+		this.article_number = article_number;
+		this.article_user = article_user;
+		this.article_board = article_board;
+		this.article_title = article_title;
+		this.article_content = article_content;
+		this.article_group = article_group;
+	}
+
+	public ArticleVO(int article_number, String article_user,
+			String article_board, int article_pid, String article_title,
+			String article_content, int article_group) {
+		super();
+		this.article_number = article_number;
+		this.article_user = article_user;
+		this.article_board = article_board;
+		this.article_pid = article_pid;
+		this.article_title = article_title;
+		this.article_content = article_content;
+		this.article_group = article_group;
+	}
+
 	public int getArticle_number() {
 		return article_number;
 	}
