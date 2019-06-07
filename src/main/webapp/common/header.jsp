@@ -12,7 +12,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">JSP/SPRING
+			<a class="navbar-brand" href="#">
 			<!-- 사용자가 정상적으로 로그인 했을 경우 : USER_INFO에 있는 name 속성 출력
 				사용자가 로그인하지 않고 메인화면으로 직접 접속했을 경우
 				(localhost/jsp/main.jsp) 접속하지 않은 사용자입니다 문구 표현 -->
@@ -22,16 +22,7 @@
 				<%-- <c:if test="${empty userName }"> 이것도 같은 기능 --%>
 					<c:set var="userName" value="접속하지 않은 사용자입니다"/>
 				</c:if>
-				${userName }
-				
-<%-- 			<c:choose> --%>
-<%-- 				<c:when test="${USER_INFO.name == null }"> --%>
-<!-- 					접속하지 않은 사용자입니다 -->
-<%-- 				</c:when> --%>
-<%-- 				<c:otherwise> --%>
-<%-- 					${USER_INFO.name } --%>
-<%-- 				</c:otherwise> --%>
-<%-- 			</c:choose> --%>
+				사용자: ${userName }
 			</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">

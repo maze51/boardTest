@@ -68,6 +68,7 @@ public class CreateBoardController extends HttpServlet {
 		
 		if(insertCnt == 1){
 			response.sendRedirect(request.getContextPath()+"/createBoard");
+			//request.getRequestDispatcher("/createBoard").forward(request, response);
 		}
 
 	}

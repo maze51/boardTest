@@ -41,6 +41,7 @@ public class DeleteArticleController extends HttpServlet {
 			request.setAttribute("boardId", session.getAttribute("boardId"));
 			
 			request.getRequestDispatcher("/showBoard").forward(request,response);
+			//response.sendRedirect(request.getContextPath()+"/showBoard");
 		}
 	}
 

@@ -9,7 +9,7 @@
 
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li class="active"><a href="${pageContext.request.contextPath}/createBoard">게시판 생성</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/createBoard">게시판 관리</a></li>
 			</ul>	
 		
 			<ul id="blist" class="nav nav-sidebar">

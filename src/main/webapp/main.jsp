@@ -34,7 +34,8 @@
 
 <div class="blog-header">
 	<h1 class="blog-title">메인 화면</h1>
-	<p class="lead blog-description">Jsp / Spring.</p>
+	<br><br>
+	<p class="lead blog-description">게시판 작업중</p>
 </div>
 
 <div class="row">

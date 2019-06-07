@@ -37,6 +37,13 @@
 			}
 			
 		})
+		
+		$("#writeR").on("click", function(){
+			var yn2 = confirm("댓글을 입력하시겠습니까?");
+			if(yn2 == true){
+				$("#rform").submit();
+			}
+		})
 	})
 </script>
 
@@ -57,7 +64,9 @@
 					</tr>
 					<tr>
 						<td class="th">글내용</td>
-						<td>${article.article_content}</td>
+						<td>
+						<textarea rows="15" cols="100" disabled>${article.article_content}</textarea>
+						</td>
 					</tr>
 					<tr>
 						<td class="th">첨부파일</td>
@@ -70,8 +79,10 @@
 			<input type="hidden" name="articleNum" value="${article.article_number}"/>
 			</form>
 			
-			<button type="button" class="btn btn-default">수정</button>
-			<button type="button" class="btn btn-default" id="deleteBtn">삭제</button>
+			<c:if test="${article.article_user == USER_INFO.userId}">
+				<button type="button" class="btn btn-default">수정</button>
+				<button type="button" class="btn btn-default" id="deleteBtn">삭제</button>
+			</c:if>
 			<button type="button" class="btn btn-default">답글</button>
 			
 			</div>
@@ -82,17 +93,33 @@
 						<td>댓글</td>
 					</tr>
 					<c:forEach items="${reply}" var="reply">
-						<tr>
-							<td></td>
-							<td>${reply.reply_content } [${reply.reply_user } / ${reply.reply_dateStr }]</td>
-						</tr>
+						<c:choose>
+							<c:when test="${reply.reply_use == 1}">
+								<tr>
+									<td></td>
+									<td>
+										${reply.reply_content } [${reply.reply_user } / ${reply.reply_dateStr }]
+										<c:if test="${reply.reply_user == USER_INFO.userId}">
+											<a href="${pageContext.request.contextPath}/deleteReply?replyId=${reply.reply_id}&aNumber=${article.article_number}"><img src="images/delete-sign.png"></a>
+										</c:if>
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td></td>
+									<td>삭제된 댓글입니다</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 					<tr>
 						<td class="th"></td>
 						<td>
-						<form action="">
-							<input type="text" id="" name=""/>
-							<button type="button" class="btn btn-default">댓글저장</button>
+						<form id="rform" method="post" action="${pageContext.request.contextPath}/writeReply">
+							<input type="text" id="reply" name="reply"/>
+							<input type="hidden" name="aNum" value="${article.article_number}"/>
+							<button type="button" id="writeR" class="btn btn-default">댓글저장</button>
 						</form>
 						</td>
 					</tr>

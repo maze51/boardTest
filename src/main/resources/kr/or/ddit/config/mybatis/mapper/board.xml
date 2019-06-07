@@ -7,7 +7,7 @@
 	<!-- 전체 게시판 목록 출력 -->
 	<select id="showBoardList" resultType="boardVO">
 		select * from BOARD
-		order by BOARD_ID
+		order by BOARD_REG
 	</select>
 	
 	<!-- 한 게시판의 전체 게시글 목록 출력 -->
@@ -68,10 +68,28 @@
 		where REPLY_ARTICLE = #{reply_article}
 	</select>
 	
-	<!-- 개별 게시글 삭제 -->
+	<!-- 특정 게시글 삭제 -->
 	<update id="deleteArticle" parameterType="int">
 		update ARTICLE
 		set ARTICLE_USE = '0'
 		where ARTICLE_NUMBER = #{article_number}
+	</update>
+	
+	<!-- 새 댓글 작성 -->
+	<insert id="writeReply" parameterType="replyVO">
+		insert into REPLY
+		values('r' || to_char(reply_seq.nextval)
+			   ,#{reply_user}
+			   ,#{reply_article}
+			   ,#{reply_content}
+			   ,SYSDATE
+			   ,1)
+	</insert>
+	
+	<!-- 특정 댓글 삭제 -->
+	<update id="deleteReply" parameterType="string">
+		update REPLY
+		set REPLY_USE = '0'
+		where REPLY_ID = #{reply_id}
 	</update>
 </mapper>

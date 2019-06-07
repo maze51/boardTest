@@ -106,4 +106,26 @@ public interface IboardDao {
 	* Method 설명 : 개별 게시글 삭제
 	 */
 	int deleteArticle(int articleNumber);
+	
+	/**
+	 * 
+	* Method : writeReply
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param reply
+	* @return
+	* Method 설명 : 새 댓글 작성
+	 */
+	int writeReply(ReplyVO reply);
+	
+	/**
+	 * 
+	* Method : deleteReply
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param replyId
+	* @return
+	* Method 설명 : 특정 댓글 삭제
+	 */
+	int deleteReply(String replyId);
 }

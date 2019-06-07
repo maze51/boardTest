@@ -91,4 +91,22 @@ public class BoardDao implements IboardDao{
 		sqlSession.close();
 		return deleteCnt;
 	}
+
+	@Override
+	public int writeReply(ReplyVO reply) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int insertCnt = sqlSession.insert("board.writeReply", reply);
+		sqlSession.commit();
+		sqlSession.close();
+		return insertCnt;
+	}
+
+	@Override
+	public int deleteReply(String replyId) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int deleteCnt = sqlSession.update("board.deleteReply", replyId);
+		sqlSession.commit();
+		sqlSession.close();
+		return deleteCnt;
+	}
 }

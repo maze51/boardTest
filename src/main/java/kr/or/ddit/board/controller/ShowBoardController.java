@@ -68,14 +68,9 @@ public class ShowBoardController extends HttpServlet {
 		request.setAttribute("articleList", articleList);
 		request.setAttribute("paginationSize", paginationSize);
 		request.setAttribute("PageVO", pageVO);
-		//request.setAttribute("boardName", boardName);
 
 		HttpSession session = request.getSession();
 		 session.setAttribute("boardId", boardId);
-		// ---------------------------------------------------------
-		// List<ArticleVO> articleList = boardService.selectAllArticle(boardId);
-		// logger.debug(" " + articleList);
-		// request.setAttribute("articleList", articleList);
 
 		request.getRequestDispatcher("/board/showBoard.jsp").forward(request,response);
 	}

@@ -74,4 +74,14 @@ public class BoardService implements IboardService{
 		return boardDao.deleteArticle(articleNumber);
 	}
 
+	@Override
+	public int writeReply(ReplyVO reply) {
+		return boardDao.writeReply(reply);
+	}
+
+	@Override
+	public int deleteReply(String replyId) {
+		return boardDao.deleteReply(replyId);
+	}
+
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.BoardVO;
+import kr.or.ddit.board.model.ReplyVO;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -132,6 +133,33 @@ public class BoardDaoTest {
 		/***When***/
 		int deleteCnt = boardDao.deleteArticle(articleNumber);
 
+		/***Then***/
+		assertEquals(1, deleteCnt);
+	}
+	
+	@Test
+	public void writeReplyTest(){
+		/***Given***/
+		ReplyVO replyVo = new ReplyVO();
+		replyVo.setReply_user("james");
+		replyVo.setReply_article(12);
+		replyVo.setReply_content("테스트메서드댓글내용입니다");
+
+		/***When***/
+		int insertCnt = boardDao.writeReply(replyVo);
+		
+		/***Then***/
+		assertEquals(1, insertCnt);
+	}
+	
+	@Test
+	public void deleteReplyTest(){
+		/***Given***/
+		String replyId = "r14";
+
+		/***When***/
+		int deleteCnt = boardDao.deleteReply(replyId);
+		
 		/***Then***/
 		assertEquals(1, deleteCnt);
 

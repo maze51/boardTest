@@ -72,7 +72,7 @@
 										<c:when test="${list.article_use == 1}">
 											<tr class="selectArticle">
 												<td class="aNum">${list.article_number }</td>
-												<td><c:forEach begin="1" end="${list.lv-1}" var="i">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>${list.article_title }</td>
+												<td><c:forEach begin="1" end="${list.lv-1}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>${list.article_title }</td>
 												<td>${list.article_user }</td>
 												<td>${list.article_dateStr }</td>
 											</tr>
@@ -90,7 +90,7 @@
 							</table>
 						</div>
 
-						<a href="${pageContext.request.contextPath }/writeArticle"
+						<a href="${pageContext.request.contextPath}/writeArticle?boardId=${param.boardId}"
 							class="btn btn-default pull-right">새글 등록</a>
 
 						<div class="text-center">
