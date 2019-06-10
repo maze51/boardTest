@@ -136,4 +136,21 @@ public class BoardDao implements IboardDao{
 		sqlSession.close();
 		return insertCnt;
 	}
+
+	@Override
+	public List<AppendVO> readAppend(int appendArticle) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		List<AppendVO> appendList = sqlSession.selectList("board.readAppend", appendArticle);
+		sqlSession.close();
+		return appendList;
+	}
+
+	@Override
+	public int modifyArticle(ArticleVO articleVo) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int updateCnt = sqlSession.update("board.modifyArticle", articleVo);
+		sqlSession.commit();
+		sqlSession.close();
+		return updateCnt;
+	}
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.or.ddit.board.model.AppendVO;
 import kr.or.ddit.board.model.ArticleVO;
 import kr.or.ddit.board.model.ReplyVO;
 import kr.or.ddit.board.service.BoardService;
@@ -40,6 +41,9 @@ public class ShowArticleController extends HttpServlet {
 		
 		List<ReplyVO> replyList = boardService.readReply(articleNumber);
 		request.setAttribute("reply", replyList);
+		
+		List<AppendVO> appendList = boardService.readAppend(articleNumber); // 게시글의 첨부파일 정보
+		request.setAttribute("append", appendList);
 		
 		request.getRequestDispatcher("/article/showArticle.jsp").forward(request,response);
 	}

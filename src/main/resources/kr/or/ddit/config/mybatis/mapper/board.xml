@@ -137,4 +137,19 @@
 				, #{append_filename})
 	</insert>
 	
+	<!-- 첨부파일 확인 -->
+	<select id="readAppend" parameterType="int" resultType="appendVO">
+		select *
+		from APPEND
+		where APPEND_ARTICLE = #{append_article}
+	</select>
+	
+	<!-- 특정 게시글 수정 -->
+	<update id="modifyArticle" parameterType="articleVO">
+		update ARTICLE
+		set  ARTICLE_TITLE= #{article_title}
+			,ARTICLE_CONTENT= #{article_content}
+		where ARTICLE_NUMBER = #{article_number}
+	</update>
+	
 </mapper>

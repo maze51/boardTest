@@ -11,7 +11,7 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 <script type="text/javascript" src="${pageContext.request.contextPath}/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
-<title>게시글 작성</title>
+<title>답글 작성</title>
 <!-- css, js -->
 <%@include file="/common/basicLib.jsp"%>
 <style>
@@ -33,12 +33,12 @@
 $(function() {
 
 	  var max_file_number = 5,
-      // form id
-      $form = $('#wafrm'), 
-      // upload field 
-      $file_upload = $('#appendF', $form), 
-      // submit
-      $button = $('#savebutton', $form); 
+    // form id
+    $form = $('#wraform'), 
+    // upload field 
+    $file_upload = $('#appendF', $form), 
+    // submit
+    $button = $('#savebutton', $form); 
 
 	  $file_upload.on('change', function () {
 	    var number_of_images = $(this)[0].files.length;
@@ -48,6 +48,7 @@ $(function() {
 	    }
 	  });
 	});
+
 
 var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
 
@@ -76,11 +77,10 @@ $(document).ready(function() {
 
 			// 이부분에 에디터 validation 검증
 			if(validation()) {
-				$("#wafrm").submit();
+				$("#wraform").submit();
 			}
 		}
 	})
-	
 });
 
 // 필수값 Check
@@ -106,8 +106,8 @@ function validation(){
 			<%@include file="/common/left.jsp"%>
 			
 			<div class="container">
-				<form id="wafrm" class="form-horizontal"
-					action="${pageContext.request.contextPath }/writeArticle"
+				<form id="wraform" class="form-horizontal"
+					action="${pageContext.request.contextPath }/writeReplyArticle"
 					method="post" enctype="multipart/form-data">
 					
 					<table class="table">
@@ -123,11 +123,15 @@ function validation(){
 						</tr>
 						<tr>
 							<td class="th">첨부파일</td>
-							<td><input type="file" name="profile" id="appendF" multiple/> 파일은 최대 5개까지 첨부 가능합니다</td>
+							<td><input type="file" name="profile" id="appendF" multiple/></td>
 						</tr>
 					</table>
 					
 					<input type="hidden" name="boardId" value="${param.boardId}">
+					<input type="hidden" name="articleNumRA" value="${param.articleNumRA}">
+					<input type="hidden" name="groupId" value="${param.groupId}">
+					<input type="hidden" name="pId" value="${param.pId}">
+					
 					<button type="button" id="savebutton" class="btn btn-lg btn-primary">저장</button>
 					
 				</form>

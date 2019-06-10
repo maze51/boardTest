@@ -24,48 +24,51 @@ import kr.or.ddit.util.PartUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/writeArticle")
+@WebServlet("/modifyArticle")
 @MultipartConfig(maxFileSize=1024*1024*3, maxRequestSize=1024*1024*15)
-public class WriteArticleController extends HttpServlet {
+public class ModifyArticleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(WriteArticleController.class);
-    
+			.getLogger(ModifyArticleController.class);
+	
 	private IboardService boardService;
     
     @Override
     public void init() throws ServletException {
     	boardService = new BoardService();
     }
-	
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/article/writeArticle.jsp").forward(request,response);
+		//logger.debug("ModifyArticleController doGet()");
+		int articleNumber = Integer.parseInt(request.getParameter("arNum"));
+		
+		ArticleVO article = boardService.readArticle(articleNumber); // 선택한 게시글 정보
+		request.setAttribute("article", article);
+		
+		List<AppendVO> appendList = boardService.readAppend(articleNumber); // 게시글의 첨부파일 정보
+		request.setAttribute("append", appendList);
+		
+		request.setAttribute("appendSize", appendList.size());
+		request.getRequestDispatcher("/article/modifyArticle.jsp").forward(request,response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("ModifyArticleController doPost()");
 		request.setCharacterEncoding("utf-8");
-		logger.debug("WriteArticleController doPost()");
 		
-		int articleNumber = boardService.getNextArticleNumber(); // 게시글 번호
-		
-		HttpSession session = request.getSession();
-		UserVO userVo = (UserVO) session.getAttribute("USER_INFO");
-		String userId = userVo.getUserId(); // 작성자
-		String boardId = request.getParameter("boardId"); // 게시판아이디
+		int articleNum = Integer.parseInt(request.getParameter("articleNum")); // 게시글번호
 		String title = (String) request.getParameter("title"); // 제목
 		String content = (String) request.getParameter("content"); // 내용
 		
 		ArticleVO articleVo = new ArticleVO();
 		
-		articleVo.setArticle_number(articleNumber);
-		articleVo.setArticle_user(userId);
-		articleVo.setArticle_board(boardId);
+		articleVo.setArticle_number(articleNum);
 		articleVo.setArticle_title(title);
 		articleVo.setArticle_content(content);
-		articleVo.setArticle_group(articleNumber);
 		
-		int insertCnt = boardService.writeArticle(articleVo);
+		int modifyCnt = boardService.modifyArticle(articleVo);
 		
 		// 파일 처리 시작-------------------------------------------------
 		
@@ -75,18 +78,17 @@ public class WriteArticleController extends HttpServlet {
 		for(int i=0;i<pList.size();i++){
 			//logger.debug("header : {}", pList.get(i).getHeaderNames());
 			if(pList.get(i).getHeaderNames().contains("content-type")){ // form에서 입력받는 내용 중 파일만 선택
-				int fileInsertCnt = fileUpload(articleNumber, pList.get(i)); // 파일 업로드 과정 수행
+				int fileInsertCnt = fileUpload(articleNum, pList.get(i)); // 파일 업로드 과정 수행
 				cnt += fileInsertCnt;
 			}
 		}
 		
-		//logger.debug("totalCnt : {}", cnt);
-		if((insertCnt == 1 && cnt == pList.size()) || insertCnt == 1){
-			logger.debug("새글작성완료");
-			response.sendRedirect(request.getContextPath()+"/showArticle?aNumber="+articleNumber);
+		if((modifyCnt == 1 && cnt == pList.size()) || modifyCnt == 1){
+			logger.debug("게시글수정완료");
+			response.sendRedirect(request.getContextPath()+"/showArticle?aNumber="+articleNum);
 		}
 	}
-
+	
 	public int fileUpload(int articleNumber, Part profile) throws IOException {
 		AppendVO append = new AppendVO();
 		int fileInsertCnt = 0;
@@ -117,5 +119,4 @@ public class WriteArticleController extends HttpServlet {
 		}
 		return fileInsertCnt;
 	}
-
 }

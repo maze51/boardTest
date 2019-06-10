@@ -38,12 +38,21 @@
 			
 		})
 		
+		$("#modifyBtn").on("click", function(){
+			$("#mform").submit();
+		})
+		
 		$("#writeR").on("click", function(){
 			var yn2 = confirm("댓글을 입력하시겠습니까?");
 			if(yn2 == true){
 				$("#rform").submit();
 			}
 		})
+		
+		$("#replyArticleBtn").on("click", function(){
+			$("#raform").submit();
+		})
+		
 	})
 </script>
 
@@ -65,25 +74,44 @@
 					<tr>
 						<td class="th">글내용</td>
 						<td>
-						<textarea rows="15" cols="100" disabled>${article.article_content}</textarea>
+						${article.article_content}
 						</td>
 					</tr>
 					<tr>
 						<td class="th">첨부파일</td>
-						<td></td>
+						<td>
+						<c:forEach items="${append}" var="append">
+							${append.append_filename}<br>
+						</c:forEach>
+						</td>
 					</tr>
 				</table>
-			
+				
+			<%-- 전송용 hidden form --%>
 			<form action="${pageContext.request.contextPath}/deleteArticle" 
 				id="dform" method="get">
-			<input type="hidden" name="articleNum" value="${article.article_number}"/>
+				<input type="hidden" name="articleNum" value="${article.article_number}"/>
 			</form>
 			
+			<form action="${pageContext.request.contextPath}/modifyArticle" 
+				id="mform" method="get">
+				<input type="hidden" name="arNum" value="${article.article_number}"/>
+			</form>
+			
+			<form action="${pageContext.request.contextPath}/writeReplyArticle" 
+				id="raform" method="get">
+				<input type="hidden" name="articleNumRA" value="${article.article_number}"/>
+				<input type="hidden" name="groupId" value="${article.article_group}"/>
+				<input type="hidden" name="boardId" value="${article.article_board}"/>
+				<input type="hidden" name="pId" value="${article.article_number}"/>
+			</form>
+			<%-- hidden form 끝 --%>
+			
 			<c:if test="${article.article_user == USER_INFO.userId}">
-				<button type="button" class="btn btn-default">수정</button>
+				<button type="button" class="btn btn-default" id="modifyBtn">수정</button>
 				<button type="button" class="btn btn-default" id="deleteBtn">삭제</button>
 			</c:if>
-			<button type="button" class="btn btn-default">답글</button>
+			<button type="button" class="btn btn-default" id="replyArticleBtn">답글</button>
 			
 			</div>
 			<div class="container">

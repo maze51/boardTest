@@ -100,4 +100,14 @@ public class BoardService implements IboardService{
 		return boardDao.insertAppend(append);
 	}
 
+	@Override
+	public List<AppendVO> readAppend(int appendArticle) {
+		return boardDao.readAppend(appendArticle);
+	}
+
+	@Override
+	public int modifyArticle(ArticleVO articleVo) {
+		return boardDao.modifyArticle(articleVo);
+	}
+
 }

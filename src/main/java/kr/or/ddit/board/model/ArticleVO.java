@@ -33,7 +33,6 @@ public class ArticleVO {
 	public ArticleVO(int article_number, String article_user,
 			String article_board, int article_pid, String article_title,
 			String article_content, int article_group) {
-		super();
 		this.article_number = article_number;
 		this.article_user = article_user;
 		this.article_board = article_board;

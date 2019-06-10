@@ -161,4 +161,26 @@ public interface IboardDao {
 	* Method 설명 : 첨부파일 저장
 	 */
 	int insertAppend(AppendVO append);
+	
+	/**
+	 * 
+	* Method : readAppend
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param appendArticle
+	* @return
+	* Method 설명 : 첨부파일 확인
+	 */
+	List<AppendVO> readAppend(int appendArticle);
+	
+	/**
+	 * 
+	* Method : modifyArticle
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param articleVo
+	* @return
+	* Method 설명 : 특정 게시글 수정
+	 */
+	int modifyArticle(ArticleVO articleVo);
 }

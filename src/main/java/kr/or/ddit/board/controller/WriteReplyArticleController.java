@@ -24,14 +24,14 @@ import kr.or.ddit.util.PartUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/writeArticle")
+@WebServlet("/writeReplyArticle")
 @MultipartConfig(maxFileSize=1024*1024*3, maxRequestSize=1024*1024*15)
-public class WriteArticleController extends HttpServlet {
+public class WriteReplyArticleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static final Logger logger = LoggerFactory
-			.getLogger(WriteArticleController.class);
     
+	private static final Logger logger = LoggerFactory
+			.getLogger(WriteReplyArticleController.class);
+	
 	private IboardService boardService;
     
     @Override
@@ -40,12 +40,11 @@ public class WriteArticleController extends HttpServlet {
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/article/writeArticle.jsp").forward(request,response);
+		request.getRequestDispatcher("/article/writeReplyArticle.jsp").forward(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		logger.debug("WriteArticleController doPost()");
 		
 		int articleNumber = boardService.getNextArticleNumber(); // 게시글 번호
 		
@@ -53,17 +52,12 @@ public class WriteArticleController extends HttpServlet {
 		UserVO userVo = (UserVO) session.getAttribute("USER_INFO");
 		String userId = userVo.getUserId(); // 작성자
 		String boardId = request.getParameter("boardId"); // 게시판아이디
+		int pId = Integer.parseInt(request.getParameter("pId")); // 부모글번호
 		String title = (String) request.getParameter("title"); // 제목
 		String content = (String) request.getParameter("content"); // 내용
+		int groupId = Integer.parseInt(request.getParameter("groupId")); // 그룹아이디
 		
-		ArticleVO articleVo = new ArticleVO();
-		
-		articleVo.setArticle_number(articleNumber);
-		articleVo.setArticle_user(userId);
-		articleVo.setArticle_board(boardId);
-		articleVo.setArticle_title(title);
-		articleVo.setArticle_content(content);
-		articleVo.setArticle_group(articleNumber);
+		ArticleVO articleVo = new ArticleVO(articleNumber, userId, boardId, pId, title, content, groupId);
 		
 		int insertCnt = boardService.writeArticle(articleVo);
 		
@@ -80,13 +74,13 @@ public class WriteArticleController extends HttpServlet {
 			}
 		}
 		
-		//logger.debug("totalCnt : {}", cnt);
 		if((insertCnt == 1 && cnt == pList.size()) || insertCnt == 1){
-			logger.debug("새글작성완료");
+			logger.debug("답글작성완료");
 			response.sendRedirect(request.getContextPath()+"/showArticle?aNumber="+articleNumber);
 		}
+		
 	}
-
+	
 	public int fileUpload(int articleNumber, Part profile) throws IOException {
 		AppendVO append = new AppendVO();
 		int fileInsertCnt = 0;

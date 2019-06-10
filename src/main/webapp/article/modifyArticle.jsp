@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 <script type="text/javascript" src="${pageContext.request.contextPath}/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
-<title>게시글 작성</title>
+<title>게시글 수정</title>
 <!-- css, js -->
 <%@include file="/common/basicLib.jsp"%>
 <style>
@@ -31,14 +32,15 @@
 </style>
 <script type="text/javascript">
 $(function() {
-
-	  var max_file_number = 5,
-      // form id
-      $form = $('#wafrm'), 
-      // upload field 
-      $file_upload = $('#appendF', $form), 
-      // submit
-      $button = $('#savebutton', $form); 
+		var already = '${appendSize}';
+	
+	  	var max_file_number = 5 - already,
+		// form id
+	    $form = $('#maform'), 
+	    // upload field 
+	    $file_upload = $('#appendF', $form), 
+		// submit
+	    $button = $('#savebutton', $form); 
 
 	  $file_upload.on('change', function () {
 	    var number_of_images = $(this)[0].files.length;
@@ -70,17 +72,16 @@ $(document).ready(function() {
 
 	// 전송버튼 클릭이벤트
 	$("#savebutton").click(function(){
-		if(confirm("저장하시겠습니까?")) {
+		if(confirm("수정하시겠습니까?")) {
 			// id가 smarteditor인 textarea에 에디터에서 대입
 			oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
 
 			// 이부분에 에디터 validation 검증
 			if(validation()) {
-				$("#wafrm").submit();
+				$("#maform").submit();
 			}
 		}
 	})
-	
 });
 
 // 필수값 Check
@@ -106,28 +107,36 @@ function validation(){
 			<%@include file="/common/left.jsp"%>
 			
 			<div class="container">
-				<form id="wafrm" class="form-horizontal"
-					action="${pageContext.request.contextPath }/writeArticle"
+				<form id="maform" class="form-horizontal"
+					action="${pageContext.request.contextPath }/modifyArticle"
 					method="post" enctype="multipart/form-data">
 					
 					<table class="table">
 						<tr>
 							<td class="th">제목</td>
-							<td><input type="text" id="title" name="title"></td>
+							<td><input type="text" id="title" name="title" value="${article.article_title}"></td>
 						</tr>
 						<tr>
 							<td class="th">글내용</td>
 							<td>
-						    	<textarea name="content" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
+						    	<textarea name="content" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;">
+						    	${article.article_content}
+						    	</textarea>
 							</td>
 						</tr>
 						<tr>
 							<td class="th">첨부파일</td>
-							<td><input type="file" name="profile" id="appendF" multiple/> 파일은 최대 5개까지 첨부 가능합니다</td>
+							<td>
+								<c:forEach items="${append}" var="append">
+									${append.append_filename} <br>
+								</c:forEach>
+							<input type="file" name="profile" id="appendF" multiple/>
+							</td>
 						</tr>
 					</table>
 					
 					<input type="hidden" name="boardId" value="${param.boardId}">
+					<input type="hidden" name="articleNum" value="${article.article_number}">
 					<button type="button" id="savebutton" class="btn btn-lg btn-primary">저장</button>
 					
 				</form>

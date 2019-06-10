@@ -32,9 +32,6 @@
 				<li><a href="#">Profile</a></li>
 				<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
 			</ul>
-			<form class="navbar-form navbar-right">
-				<input type="text" class="form-control" placeholder="Search...">
-			</form>
 		</div>
 	</div>
 </nav>

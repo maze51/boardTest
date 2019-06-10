@@ -204,4 +204,35 @@ public class BoardDaoTest {
 		/***Then***/
 		assertEquals(1, insertCnt);
 	}
+	
+	@Test
+	public void readAppendTest(){
+		/***Given***/
+		int appendArticle = 41;
+
+		/***When***/
+		List<AppendVO> appendList = boardDao.readAppend(appendArticle);
+
+		/***Then***/
+		assertNotNull(appendList);
+		assertEquals("sally.png", appendList.get(0).getAppend_filename());
+
+	}
+	
+	@Test
+	public void modifyArticleTest(){
+		/***Given***/
+		ArticleVO articleVo = new ArticleVO();
+		
+		articleVo.setArticle_number(40);
+		articleVo.setArticle_title("수정한글제목");
+		articleVo.setArticle_content("수정한글내용");
+
+		/***When***/
+		int updateCnt = boardDao.modifyArticle(articleVo);
+		
+		/***Then***/
+		assertEquals(1, updateCnt);
+
+	}
 }
