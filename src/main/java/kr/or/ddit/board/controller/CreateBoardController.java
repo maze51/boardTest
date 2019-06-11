@@ -1,6 +1,7 @@
 package kr.or.ddit.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,10 @@ public class CreateBoardController extends HttpServlet {
 		cMap.put("useSelect", useSelect);
 		
 		int insertCnt = boardService.createBoard(cMap);
+		List<BoardVO> boardList = boardService.showBoardList();
+		
+		session.removeAttribute("BOARD_LIST");
+		session.setAttribute("BOARD_LIST", boardList);
 		
 		if(insertCnt == 1){
 			response.sendRedirect(request.getContextPath()+"/createBoard");

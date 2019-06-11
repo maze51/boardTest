@@ -128,7 +128,7 @@
 		select article_seq.nextval from DUAL
 	</select>
 	
-	<!-- 첨부파일 저장 -->
+	<!-- 첨부파일 서버에 저장 -->
 	<insert id="insertAppend" parameterType="appendVO">
 		insert into APPEND
 		values('a' || to_char(append_seq.nextval)
@@ -151,5 +151,13 @@
 			,ARTICLE_CONTENT= #{article_content}
 		where ARTICLE_NUMBER = #{article_number}
 	</update>
+	
+	<!-- 다운로드할 파일 정보 확인 -->
+	<select id="getDownloadFile" parameterType="string" resultType="appendVO">
+		select *
+		from APPEND
+		where APPEND_ID = #{append_id}
+	</select>
+	
 	
 </mapper>

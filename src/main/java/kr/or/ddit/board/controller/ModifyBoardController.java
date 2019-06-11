@@ -2,6 +2,7 @@ package kr.or.ddit.board.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.or.ddit.board.model.BoardVO;
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.service.IboardService;
 import kr.or.ddit.user.model.UserVO;
@@ -56,6 +58,11 @@ public class ModifyBoardController extends HttpServlet {
 		mMap.put("useSelect", useSelect);
 		
 		int modifyCnt = boardService.modifyBoard(mMap);
+		
+		List<BoardVO> boardList = boardService.showBoardList();
+		
+		session.removeAttribute("BOARD_LIST");
+		session.setAttribute("BOARD_LIST", boardList);
 		
 		if(modifyCnt == 1){
 			response.sendRedirect(request.getContextPath()+"/createBoard");

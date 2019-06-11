@@ -110,4 +110,9 @@ public class BoardService implements IboardService{
 		return boardDao.modifyArticle(articleVo);
 	}
 
+	@Override
+	public AppendVO getDownloadFile(String appendId) {
+		return boardDao.getDownloadFile(appendId);
+	}
+
 }

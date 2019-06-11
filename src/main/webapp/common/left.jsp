@@ -13,7 +13,7 @@
 			</ul>	
 		
 			<ul id="blist" class="nav nav-sidebar">
-				<c:forEach items="${BOARD_LIST }" var="board">
+				<c:forEach items="${BOARD_LIST}" var="board">
 					<c:choose>
 						<c:when test="${board.board_use == 1}">
 							<li class="active">

@@ -27,6 +27,9 @@
 		width : 500px;
 		margin : 0 10px 0 0;
 	}
+	.download:hover{
+		cursor : pointer;
+	}
 </style>
 <script>
 	$(document).ready(function(){
@@ -35,7 +38,6 @@
 			if(yn == true){
 				$("#dform").submit();
 			}
-			
 		})
 		
 		$("#modifyBtn").on("click", function(){
@@ -51,6 +53,13 @@
 		
 		$("#replyArticleBtn").on("click", function(){
 			$("#raform").submit();
+		})
+		
+		$(".download").on("click", function(){
+			var id = $(this).children().val();
+			//alert(id);
+			$("#aId").val(id);
+			$("#file").submit();
 		})
 		
 	})
@@ -80,9 +89,11 @@
 					<tr>
 						<td class="th">첨부파일</td>
 						<td>
-						<c:forEach items="${append}" var="append">
-							${append.append_filename}<br>
-						</c:forEach>
+							<c:forEach items="${append}" var="append">
+								<span class="download">${append.append_filename}
+									<input type="hidden" id="si" value="${append.append_id}">
+								</span><br>
+							</c:forEach>
 						</td>
 					</tr>
 				</table>
@@ -104,6 +115,11 @@
 				<input type="hidden" name="groupId" value="${article.article_group}"/>
 				<input type="hidden" name="boardId" value="${article.article_board}"/>
 				<input type="hidden" name="pId" value="${article.article_number}"/>
+			</form>
+			
+			<form action="${pageContext.request.contextPath}/downloadFile"
+				id="file" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="aId" id="aId">
 			</form>
 			<%-- hidden form 끝 --%>
 			

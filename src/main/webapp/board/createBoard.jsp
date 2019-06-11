@@ -17,9 +17,6 @@
 
 <!-- css, js -->
 <%@include file="/common/basicLib.jsp"%>
-<script>
-	
-</script>
 
 </head>
 <body>
@@ -30,7 +27,8 @@
 		<div class="row">
 
 			<!-- left -->
-			<%@include file="/common/left.jsp"%>
+			<%-- <jsp:include page="/common/left.jsp" flush="true"></jsp:include> --%>
+			<%@include file="/common/left.jsp" %>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<div class="blog-header">
 					<p class="lead blog-description">게시판 관리</p>

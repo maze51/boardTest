@@ -216,7 +216,6 @@ public class BoardDaoTest {
 		/***Then***/
 		assertNotNull(appendList);
 		assertEquals("sally.png", appendList.get(0).getAppend_filename());
-
 	}
 	
 	@Test
@@ -233,6 +232,18 @@ public class BoardDaoTest {
 		
 		/***Then***/
 		assertEquals(1, updateCnt);
+	}
+	
+	@Test
+	public void getDownloadFileTest(){
+		/***Given***/
+		String appendId = "a10";
+
+		/***When***/
+		AppendVO appendVo = boardDao.getDownloadFile(appendId);
+
+		/***Then***/
+		assertEquals("Tulips.jpg", appendVo.getAppend_filename());
 
 	}
 }

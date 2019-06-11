@@ -153,4 +153,12 @@ public class BoardDao implements IboardDao{
 		sqlSession.close();
 		return updateCnt;
 	}
+
+	@Override
+	public AppendVO getDownloadFile(String appendId) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		AppendVO appendVo = sqlSession.selectOne("board.getDownloadFile", appendId);
+		sqlSession.close();
+		return appendVo;
+	}
 }

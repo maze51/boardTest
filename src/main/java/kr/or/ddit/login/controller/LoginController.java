@@ -67,7 +67,8 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("USER_INFO", userVO);
 			//ServletContext context = request.getServletContext();
 			session.setAttribute("BOARD_LIST", useBoardList);
-
+			//request.setAttribute("boardList", useBoardList);
+			
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
 			
 		} else {

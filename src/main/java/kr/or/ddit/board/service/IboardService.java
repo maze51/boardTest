@@ -172,4 +172,15 @@ public interface IboardService {
 	* Method 설명 : 특정 게시글 수정
 	 */
 	int modifyArticle(ArticleVO articleVo);
+	
+	/**
+	 * 
+	* Method : getDownloadFile
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param appendId
+	* @return
+	* Method 설명 : 다운로드할 파일 정보 확인
+	 */
+	AppendVO getDownloadFile(String appendId);
 }
