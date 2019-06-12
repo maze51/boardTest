@@ -128,7 +128,8 @@ function validation(){
 							<td class="th">첨부파일</td>
 							<td>
 								<c:forEach items="${append}" var="append">
-									${append.append_filename} <br>
+									${append.append_filename}<a href="${pageContext.request.contextPath}/deleteAppend?appendId=${append.append_id}&aNumber=${article.article_number}"><img src="images/delete-sign.png"></a>
+									<br>
 								</c:forEach>
 							<input type="file" name="profile" id="appendF" multiple/>
 							</td>

@@ -183,4 +183,26 @@ public interface IboardService {
 	* Method 설명 : 다운로드할 파일 정보 확인
 	 */
 	AppendVO getDownloadFile(String appendId);
+	
+	/**
+	 * 
+	* Method : readBoardName
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param boardId
+	* @return
+	* Method 설명 : 게시판 아이디에 해당하는 게시판 이름 확인
+	 */
+	String readBoardName(String boardId);
+	
+	/**
+	 * 
+	* Method : deleteAppend
+	* 작성자 : PC10
+	* 변경이력 :
+	* @param appendId
+	* @return
+	* Method 설명 : 첨부파일 삭제
+	 */
+	int deleteAppend(String appendId);
 }

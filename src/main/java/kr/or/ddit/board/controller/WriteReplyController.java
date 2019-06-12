@@ -36,7 +36,7 @@ public class WriteReplyController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		logger.debug("WriteReplyController doPost()");
+		//logger.debug("WriteReplyController doPost()");
 		
 		String replyContent = request.getParameter("reply");
 		int articleNumber = Integer.parseInt(request.getParameter("aNum"));

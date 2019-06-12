@@ -115,4 +115,14 @@ public class BoardService implements IboardService{
 		return boardDao.getDownloadFile(appendId);
 	}
 
+	@Override
+	public String readBoardName(String boardId) {
+		return boardDao.readBoardName(boardId);
+	}
+
+	@Override
+	public int deleteAppend(String appendId) {
+		return boardDao.deleteAppend(appendId);
+	}
+
 }

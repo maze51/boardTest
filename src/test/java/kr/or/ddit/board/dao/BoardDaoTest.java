@@ -244,6 +244,17 @@ public class BoardDaoTest {
 
 		/***Then***/
 		assertEquals("Tulips.jpg", appendVo.getAppend_filename());
+	}
+	
+	@Test
+	public void readBoardNameTest(){
+		/***Given***/
+		String boardId = "b3";
 
+		/***When***/
+		String boardName = boardDao.readBoardName(boardId);
+
+		/***Then***/
+		assertEquals("자유게시판", boardName);
 	}
 }

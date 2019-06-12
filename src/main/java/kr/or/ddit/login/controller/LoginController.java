@@ -39,8 +39,6 @@ public class LoginController extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		logger.debug("LoginController doGet()");
-		
 		request.getRequestDispatcher("/login/login.jsp").forward(request, response);
 	}
 
@@ -65,9 +63,7 @@ public class LoginController extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("USER_INFO", userVO);
-			//ServletContext context = request.getServletContext();
 			session.setAttribute("BOARD_LIST", useBoardList);
-			//request.setAttribute("boardList", useBoardList);
 			
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
 			

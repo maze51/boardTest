@@ -226,6 +226,17 @@ public class BoardServiceTest {
 
 		/***Then***/
 		assertEquals("6r3vs-FPCLo.jpg", appendVo.getAppend_filename());
+	}
+	
+	@Test
+	public void readBoardNameTest(){
+		/***Given***/
+		String boardId = "b10";
 
+		/***When***/
+		String boardName = boardService.readBoardName(boardId);
+
+		/***Then***/
+		assertEquals("공지게시판", boardName);
 	}
 }

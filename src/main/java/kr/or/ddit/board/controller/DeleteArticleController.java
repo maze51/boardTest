@@ -38,9 +38,12 @@ public class DeleteArticleController extends HttpServlet {
 		if(deleteCnt == 1){
 			logger.debug("삭제완료");
 			HttpSession session = request.getSession();
-			request.setAttribute("boardId", session.getAttribute("boardId"));
+			String boardId = (String) session.getAttribute("boardId");
+			//request.setAttribute("boardId", boardId);
 			
-			request.getRequestDispatcher("/showBoard").forward(request,response);
+			String boardName = boardService.readBoardName(boardId);
+			
+			request.getRequestDispatcher("/showBoard?boardId=" + boardId + "&boardName=" + boardName).forward(request,response);
 			//response.sendRedirect(request.getContextPath()+"/showBoard");
 		}
 	}
