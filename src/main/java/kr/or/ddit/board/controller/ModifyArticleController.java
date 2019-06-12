@@ -3,6 +3,7 @@ package kr.or.ddit.board.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -40,22 +41,20 @@ public class ModifyArticleController extends HttpServlet {
     }
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//logger.debug("ModifyArticleController doGet()");
 		int articleNumber = Integer.parseInt(request.getParameter("arNum"));
 		
-		ArticleVO article = boardService.readArticle(articleNumber); // 선택한 게시글 정보
-		request.setAttribute("article", article);
+		Map<String, Object> resultMap = boardService.readArticle(articleNumber);
 		
-		List<AppendVO> appendList = boardService.readAppend(articleNumber); // 게시글의 첨부파일 정보
+		request.setAttribute("article", (ArticleVO) resultMap.get("article"));
+		
+		List<AppendVO> appendList = (List<AppendVO>) resultMap.get("append"); // 게시글의 첨부파일 정보
 		request.setAttribute("append", appendList);
 		
 		request.setAttribute("appendSize", appendList.size());
 		request.getRequestDispatcher("/article/modifyArticle.jsp").forward(request,response);
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("ModifyArticleController doPost()");
 		request.setCharacterEncoding("utf-8");
 		
 		int articleNum = Integer.parseInt(request.getParameter("articleNum")); // 게시글번호

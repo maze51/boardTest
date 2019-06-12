@@ -42,18 +42,11 @@ public class ShowBoardController extends HttpServlet {
 		String pageSizeString = request.getParameter("pageSize");
 
 		int page = pageString == null ? 1 : Integer.parseInt(pageString);
-		int pageSize = pageSizeString == null ? 10 : Integer
-				.parseInt(pageSizeString);
+		int pageSize = pageSizeString == null ? 10 : Integer.parseInt(pageSizeString);
 
 		PageVO pageVO = new PageVO(page, pageSize);
 		
-		String boardId = null;
-		if(request.getParameter("boardId") == null){
-			boardId = (String) request.getAttribute("boardId");
-		} else {
-			boardId = request.getParameter("boardId");
-		}
-		String boardName = request.getParameter("boardName");
+		String boardId = request.getParameter("boardId");
 		// ---------------------------------------------------------
 		// 게시글 페이징 리스트 조회
 		Map<String, Object> searchMap = new HashMap<String, Object>();

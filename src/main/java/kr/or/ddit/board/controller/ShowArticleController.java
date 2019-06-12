@@ -2,6 +2,7 @@ package kr.or.ddit.board.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,22 +35,17 @@ public class ShowArticleController extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int articleNumber = Integer.parseInt(request.getParameter("aNumber"));
-		//logger.debug("aNum : {}", articleNumber);
 		
-		ArticleVO article = boardService.readArticle(articleNumber); // 선택한 게시글 정보
-		request.setAttribute("article", article);
+		Map<String, Object> resultMap = boardService.readArticle(articleNumber);
 		
-		List<ReplyVO> replyList = boardService.readReply(articleNumber);
-		request.setAttribute("reply", replyList);
-		
-		List<AppendVO> appendList = boardService.readAppend(articleNumber); // 게시글의 첨부파일 정보
-		request.setAttribute("append", appendList);
+		request.setAttribute("article", resultMap.get("article")); // 선택한 게시글 정보
+		request.setAttribute("reply", resultMap.get("reply")); // 게시글의 댓글 정보
+		request.setAttribute("append", resultMap.get("append")); // 게시글의 첨부파일 정보
 		
 		request.getRequestDispatcher("/article/showArticle.jsp").forward(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("doPost()");
 	}
 
 }

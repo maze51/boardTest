@@ -51,13 +51,15 @@
 									<input type="text" class="form-control" name="boardName">
 								</div>
 								<select class="form-control" name="useSelect">
-									<option>사용</option>
-									<option>미사용</option>
+									<option value="1">사용</option>
+									<option value="0">미사용</option>
 								</select>
 								<button type="submit" class="btn btn-default">생성</button>
 							</form>
 						</div>
-						<c:forEach items="${boardList}" var="board">
+						
+						
+						<c:forEach items="${BOARD_LIST}" var="board">
 							<div class="blog-post">
 								<form class="form-inline"
 								action="${pageContext.request.contextPath}/modifyBoard"
@@ -75,14 +77,14 @@
 									<c:choose>
 										<c:when test="${board.board_use == '1'}">
 											<select class="form-control" name="useSelect">
-												<option selected>사용</option>
-												<option>미사용</option>
+												<option value="1" selected>사용</option>
+												<option value="0">미사용</option>
 											</select>
 										</c:when>
 										<c:when test="${board.board_use == '0'}">
 											<select class="form-control" name="useSelect">
-												<option>사용</option>
-												<option selected>미사용</option>
+												<option value="1">사용</option>
+												<option value="0" selected>미사용</option>
 											</select>
 										</c:when>
 									</c:choose>

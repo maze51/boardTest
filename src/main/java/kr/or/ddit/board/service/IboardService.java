@@ -73,7 +73,7 @@ public interface IboardService {
 	* @return
 	* Method 설명 : 개별 게시글 확인
 	 */
-	ArticleVO readArticle(int articleNumber);
+	Map<String, Object> readArticle(int articleNumber);
 	
 	/**
 	 * 

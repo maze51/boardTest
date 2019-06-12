@@ -61,8 +61,18 @@ public class BoardService implements IboardService{
 	}
 
 	@Override
-	public ArticleVO readArticle(int articleNumber) {
-		return boardDao.readArticle(articleNumber);
+	public Map<String, Object> readArticle(int articleNumber) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		ArticleVO article = boardDao.readArticle(articleNumber);
+		List<ReplyVO> replyList = boardDao.readReply(articleNumber);
+		List<AppendVO> appendList = boardDao.readAppend(articleNumber);
+		
+		resultMap.put("article", article);
+		resultMap.put("reply", replyList);
+		resultMap.put("append", appendList);
+		
+		return resultMap;
 	}
 
 	@Override

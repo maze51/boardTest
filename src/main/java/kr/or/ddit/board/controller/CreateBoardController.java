@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,10 +37,6 @@ public class CreateBoardController extends HttpServlet {
 	}
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		List<BoardVO> boardList = boardService.showBoardList();
-		request.setAttribute("boardList", boardList);
-		
 		request.getRequestDispatcher("/board/createBoard.jsp").forward(request, response);
 	}
 
@@ -48,11 +45,6 @@ public class CreateBoardController extends HttpServlet {
 		
 		String boardName = request.getParameter("boardName");
 		String useSelect = request.getParameter("useSelect");
-		if(useSelect != null && useSelect.equals("사용")){
-			useSelect = "1";
-		} else if(useSelect != null && useSelect.equals("미사용")){
-			useSelect = "0";
-		}
 		
 		HttpSession session = request.getSession();
 		UserVO userVo = (UserVO) session.getAttribute("USER_INFO");
@@ -68,12 +60,10 @@ public class CreateBoardController extends HttpServlet {
 		int insertCnt = boardService.createBoard(cMap);
 		List<BoardVO> boardList = boardService.showBoardList();
 		
-		session.removeAttribute("BOARD_LIST");
-		session.setAttribute("BOARD_LIST", boardList);
+		request.getServletContext().setAttribute("BOARD_LIST", boardList);
 		
 		if(insertCnt == 1){
 			response.sendRedirect(request.getContextPath()+"/createBoard");
-			//request.getRequestDispatcher("/createBoard").forward(request, response);
 		}
 
 	}
