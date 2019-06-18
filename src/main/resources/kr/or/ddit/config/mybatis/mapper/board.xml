@@ -8,7 +8,8 @@
 	
 	<!-- 전체 게시판 목록 출력 -->
 	<select id="showBoardList" resultType="boardVO">
-		select * from BOARD
+		select /*+ INDEX(BOARD PK_BOARD)*/ *
+		from BOARD
 		order by BOARD_REG
 	</select>
 	

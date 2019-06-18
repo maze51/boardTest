@@ -107,7 +107,8 @@ public class BoardServiceTest {
 		int articleNumber = 64;
 
 		/***When***/
-		ArticleVO articleVo = boardService.readArticle(articleNumber);
+		Map<String, Object> resultMap = boardService.readArticle(articleNumber);
+		ArticleVO articleVo = (ArticleVO) resultMap.get("article");
 
 		/***Then***/
 		assertEquals("게시글", articleVo.getArticle_title());
